@@ -2,7 +2,7 @@
   "name": "mars-roving-ts-browserify",
   "description": "Documenting best practices -- typescript and browserify",
   "version": "0.0.0",
-  "main": "index.js",
+  "main": "index.ts",
   "devDependencies": {
     "browserify": "^17.0.0",
     "budo": "^11.7.0",
@@ -16,11 +16,11 @@
     "unassertify": "^2.1.1"
   },
   "scripts": {
-    "start": "mkdir -p public && npm run build && concurrently --kill-others \"npm run serve\" \"npm run watch-sass\"",
-    "build": "npm run build-js && npm run build-sass",
-    "serve": "budo src/index.js:bundle.js --dir=public/ --live --pushstate --open -- -p esmify -p [ tsify --noImplicitAny ] -p common-shakeify -dv",
+    "start": "npm run build && concurrently --kill-others \"npm run serve\" \"npm run watch-sass\"",
+    "build": "mkdir -p public && npm run build-js && npm run build-sass",
+    "serve": "budo src/index.ts:bundle.js --dir=public/ --live --pushstate --open -- -p esmify -p [ tsify --noImplicitAny ] -p common-shakeify -dv",
     "build-sass": "sass src/style/main.scss public/style.css",
-    "build-js": "browserify -p esmify -p common-shakeify -t unassertify -t uglifyify --debug src/index.js | uglifyjs -mc > public/bundle.js",
+    "build-js": "browserify -p esmify -p [ tsify --noImplicitAny ] -p common-shakeify -t unassertify -t uglifyify --debug src/index.ts | uglifyjs -mc > public/bundle.js",
     "watch-sass": "sass --watch src/style/main.scss public/style.css",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
