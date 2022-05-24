@@ -1,1 +1,37 @@
-{}
+{
+  "name": "mars-roving-ts-browserify",
+  "description": "Documenting best practices -- typescript and browserify",
+  "version": "0.0.0",
+  "main": "index.js",
+  "devDependencies": {
+    "browserify": "^17.0.0",
+    "budo": "^11.7.0",
+    "common-shakeify": "^0.6.2",
+    "concurrently": "^7.2.1",
+    "esmify": "^2.1.1",
+    "sass": "^1.52.1",
+    "tsify": "^5.0.4",
+    "uglify-js": "^3.15.5",
+    "uglifyify": "^5.0.2",
+    "unassertify": "^2.1.1"
+  },
+  "scripts": {
+    "start": "mkdir -p public && npm run build && concurrently --kill-others \"npm run serve\" \"npm run watch-sass\"",
+    "build": "npm run build-js && npm run build-sass",
+    "serve": "budo src/index.js:bundle.js --dir=public/ --live --pushstate --open -- -p esmify -p [ tsify --noImplicitAny ] -p common-shakeify -dv",
+    "build-sass": "sass src/style/main.scss public/style.css",
+    "build-js": "browserify -p esmify -p common-shakeify -t unassertify -t uglifyify --debug src/index.js | uglifyjs -mc > public/bundle.js",
+    "watch-sass": "sass --watch src/style/main.scss public/style.css",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nichoth/mars-roving-ts-browserify.git"
+  },
+  "author": "nichoth",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nichoth/mars-roving-ts-browserify/issues"
+  },
+  "homepage": "https://github.com/nichoth/mars-roving-ts-browserify#readme"
+}
