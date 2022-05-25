@@ -9,7 +9,7 @@
     "build": "mkdir -p public && npm run build-js && npm run build-sass",
     "serve": "budo src/index.ts:bundle.js --dir=public/ --live --pushstate --open -- -p esmify -p [ tsify --noImplicitAny ] -dv",
     "build-sass": "sass src/style/main.scss public/style.css",
-    "build-js": "browserify -p esmify -p [ tsify --noImplicitAny ] -t unassertify -t uglifyify --debug src/index.ts | uglifyjs -mc > public/bundle.js",
+    "build-js": "browserify -p [ tsify --noImplicitAny ] -p esmify -t unassertify -t uglifyify --debug src/index.ts | uglifyjs -mc > public/bundle.js",
     "watch-sass": "sass --watch src/style/main.scss public/style.css",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
