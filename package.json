@@ -3,12 +3,13 @@
   "description": "Documenting best practices -- typescript and browserify",
   "version": "0.0.0",
   "main": "index.ts",
+  "type": "module",
   "scripts": {
     "start": "npm run build && concurrently --kill-others \"npm run serve\" \"npm run watch-sass\"",
     "build": "mkdir -p public && npm run build-js && npm run build-sass",
     "serve": "budo src/index.ts:bundle.js --dir=public/ --live --pushstate --open -- -p esmify -p [ tsify --noImplicitAny ] -dv",
     "build-sass": "sass src/style/main.scss public/style.css",
-    "build-js": "browserify -p esmify -p [ tsify --noImplicitAny ] -p common-shakeify -t unassertify -t uglifyify --debug src/index.ts | uglifyjs -mc > public/bundle.js",
+    "build-js": "browserify -p esmify -p [ tsify --noImplicitAny ] -t unassertify -t uglifyify --debug src/index.ts | uglifyjs -mc > public/bundle.js",
     "watch-sass": "sass --watch src/style/main.scss public/style.css",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
